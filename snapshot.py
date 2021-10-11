@@ -1,33 +1,3 @@
-"""
-Simple filesystem monitoring method without relying on inotify or mtime.
-Basically a set using sqlite.
-
-Records the names of directories in a parent directory in a database
-alongside a hash, creating a snapshot. This can then be used to determine
-if new files or directories have been exported since the last time it has
-been run.
-
-An example workflow:
-
-    results_dir = "/mnt/proj-c19/ABNEUTRALISATION/NA_raw_data"
-
-    snapshot = Snapshot(results_dir, regex=r"^[S|T].*/*Measurement 1$")
-
-    if snapshot.current_hash == snapshot.stored_hash:
-        # nothing has changed
-        sys.exit(0)
-
-    # get new directory names
-    new_data = snapshot.get_new_dirs()
-
-    # record new snapshot
-    snapshot.make_snapshot()
-
-    if new_data:
-        # do stuff with new data
-"""
-
-
 import hashlib
 import os
 import re
