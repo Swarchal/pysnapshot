@@ -75,7 +75,10 @@ class SnapshotDB:
 
 class Snapshot:
     def __init__(
-        self, parent_dir: str, db_path=".snapshot.db", regex=None,
+        self,
+        parent_dir: str,
+        db_path=".snapshot.db",
+        regex=None,
     ):
         self.parent_dir = parent_dir
         self.regex = re.compile(regex) if regex else None
@@ -88,7 +91,7 @@ class Snapshot:
         return hashlib.sha256(filenames_utf8).hexdigest()
 
     @property
-    def stored_hash(self) -> str:
+    def stored_hash(self) -> Optional[str]:
         return self.db.get_hash()
 
     def get_all_dirnames(self) -> List[str]:
